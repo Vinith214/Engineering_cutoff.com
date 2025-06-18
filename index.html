@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering CutOff Calculator</title>
+    <style>
+        body{
+            display: flex;
+            justify-content:center;
+        }
+        .cont {
+            position: absolute;
+            margin-top: 20px;
+            border: thick solid black;
+            padding: 40px;
+            text-align: center;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            color: #fff;
+            padding: 6px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+        }
+
+        input[type="reset"] {
+            background-color: blue;
+        }
+
+       .cont img {
+            margin-left: 20px;
+            height: 150px;
+            width: 150px;
+        } 
+    </style>
+</head>
+<body bgcolor="white" text="center">
+    <div class="cont">
+        <div id="form">
+            <h2>Engineering CutOff</h2>
+            <img src="./clg_ph.jpg" alt="College Logo">
+            <p>Enter Your Physics Marks</p>
+            <input type="number" id="num1" ><br>
+            <p>Enter Your Chemistry Marks</p>
+            <input type="number" id="num2" ><br>
+            <p>Enter Your Maths Marks</p>
+            <input type="number" id="num3" ><br><br>
+
+            <input type="submit" value="Calculate" onclick="calculateCutoff()">
+
+            <p>CutOff Marks<br></p><input id="sum" readonly><br><br>
+            <input type="reset" value="Reset" onclick="resetFields()">
+        </div>
+    </div>
+
+    <script>
+        function calculateCutoff() {
+            const physics = parseFloat(document.getElementById("num1").value);
+            const chemistry = parseFloat(document.getElementById("num2").value);
+            const maths = parseFloat(document.getElementById("num3").value);
+            const output = document.getElementById("sum");
+
+            if (isNaN(physics) || isNaN(chemistry) || isNaN(maths)) {
+                output.value = "Please fill all marks";
+                return;
+            }
+
+            if (physics < 35 || chemistry < 35 || maths < 35 || physics > 100 || chemistry > 100 || maths > 100) {
+                output.value = "Invalid Marks Entered";
+                return;
+            }
+
+            const average = (physics + chemistry) / 2;
+            const cutoff = average + maths;
+
+            output.value = cutoff >= 100 ? cutoff.toFixed(2) : "Cutoff < 100";
+        }
+
+        function resetFields() {
+            document.getElementById("num1").value = "";
+            document.getElementById("num2").value = "";
+            document.getElementById("num3").value = "";
+            document.getElementById("sum").value = "";
+        }
+    </script>
+</body>
+</html>
